@@ -2,9 +2,10 @@ const express = require('express')
 const router = express.Router()
 const Thing = require('../models/thing')
 const User = require('../models/user')
+const auth = require('../auth')
 
 // Add a new item
-router.post('/addThing', (req, res) => {
+router.post('/addThing', auth , (req, res) => {
     const aThing = new Thing({
         name: req.body.name,
         description: req.body.description,
@@ -21,6 +22,7 @@ router.post('/addThing', (req, res) => {
         
         User.findById(req.body.userId, (err, user) => {
             if (err) console.log(err)
+            if(!user) throw new Error('No user')
             user.things.push(ans._id)
             user.save()
         })
@@ -28,8 +30,8 @@ router.post('/addThing', (req, res) => {
     })
 })
 
-// // Delete an item
-router.delete('/deleteThing', (req,res) => {
+// Delete an item
+router.delete('/deleteThing', auth,  (req,res) => {
     let notFound = false
     Thing.findById(req.body._id,(err, thing) => {
         if(err) console.log(err)

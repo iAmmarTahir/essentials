@@ -8,6 +8,7 @@ const GridFsStorage = require("multer-gridfs-storage");
 const Grid = require("gridfs-stream");
 const methodOverride = require("method-override");
 const api = require('./api')
+const config = require('./config')
 
 // Init app
 const app = express()
@@ -19,7 +20,7 @@ app.use(methodOverride('_method'))
 app.set('view engine', 'ejs')
 
 // MongoDB URI
-const URI = 'mongodb://localhost:27017/essentials'
+const URI = config.URI
 
 
 mongoose.connect(URI, {useNewUrlParser: true}).then(

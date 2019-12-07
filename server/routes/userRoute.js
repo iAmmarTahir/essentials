@@ -4,19 +4,17 @@ const User = require('../models/user')
 
 
 // Registering a new User
-router.post('/signup', (req,res) => {
+router.post('/signup', async (req,res) => {
     
     const aUser = new User({
         name: req.body.name,
         email: req.body.email,
         password: req.body.password,
         phone: req.body.phone
-    }).save((err, ans) => {
-        if(err) {
-            res.status(400).send(err)
-        }
-        res.status(200).send(ans)
     })
+    await aUser.save()
+    const token = await aUser.getToken()
+    res.status(200).send(token)
 })
 
 // Logging in a User
@@ -29,7 +27,8 @@ router.post('/login', (req, res) => {
         user.comparePassword(req.body.password, (err, isMatch) => {
             if (err)  throw err
             if(!isMatch) return res.status(404).json({msg: 'Wrong password!'})
-           return res.status(200).json({msg: 'Logged in'})
+            const token = aUser.getToken()
+           return res.status(200).send(token)
         })
     })
 })
