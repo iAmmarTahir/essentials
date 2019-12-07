@@ -3,9 +3,9 @@
 const express = require('express')
 const router = express.Router()
 const User = require('./routes/userRoute')
-const Item = require('./routes/itemRoute')
+const Thing = require('./routes/thingRoute')
 
-router.use('/item', Item)
+router.use('/thing', Thing)
 router.use('/user', User)
 
 

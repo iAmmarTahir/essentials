@@ -16,7 +16,7 @@ const User = new Schema({
     isBuyer: {type: Boolean, default: false},
     phone: {type:String , required: true},
     dateRegistered: {type: Date,default: Date.now()},
-    items: [{type: Schema.Types.ObjectId , ref: 'Item'}]
+    things: [{type: Schema.Types.ObjectId , ref: 'Thing'}]
 })
 
 User.pre('save', function(next) {
