@@ -62,7 +62,6 @@ router.delete('/deleteThing', auth,  (req,res) => {
                     res.status(200).json({
                         msg: 'Deleted successfully...'
                     })
-
                 })
             }
         }
