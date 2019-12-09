@@ -9,6 +9,7 @@ const Grid = require("gridfs-stream");
 const methodOverride = require("method-override");
 const api = require('./api')
 const config = require('./config')
+const cors = require('cors')
 
 // Init app
 const app = express()
@@ -18,6 +19,7 @@ const app = express()
 app.use(bodyParser.json())
 app.use(methodOverride('_method'))
 app.set('view engine', 'ejs')
+app.use(cors())
 
 // MongoDB URI
 const URI = config.URI
@@ -122,7 +124,7 @@ app.get("/", (req, res) => {
 
 
 
-const PORT = 3000
+const PORT = 4000
 
 app.listen(PORT, () => {
     console.log(`Server running on ${PORT}...`)

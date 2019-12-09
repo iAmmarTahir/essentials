@@ -18,7 +18,7 @@ router.post('/signup', async (req,res) => {
 })
 
 // Logging in a User
-router.post('/login', (req, res) => {
+router.post('/login',async (req, res) => {
     User.findOne({'email': req.body.email}, (err, user) => {
         if(!user){
             res.json({msg: 'User not found...'})
@@ -26,9 +26,13 @@ router.post('/login', (req, res) => {
 
         user.comparePassword(req.body.password, (err, isMatch) => {
             if (err)  throw err
-            if(!isMatch) return res.status(404).json({msg: 'Wrong password!'})
-            const token = aUser.getToken()
-           return res.status(200).send(token)
+            if(!isMatch) return res.status(401).json({msg: 'Wrong password!'})
+            user.getToken().then((token) =>{
+                return res.status(200).json({
+                    token: token
+                })
+            })
+           
         })
     })
 })
