@@ -1,0 +1,35 @@
+* 
+
+.nav-bar {
+    height: 60px;
+    background-color: #0B3954;
+    color:#F0EFF4;
+    margin-top: 0;
+}
+
+.logo {
+    margin-left: 10px;
+    float: left;
+}
+
+
+ul {
+    list-style: none;
+    float: right;
+    margin-top: 10px;
+}
+
+li {
+    display: inline-block;
+    padding: 5px 20px;
+}
+
+a {
+    text-decoration: none;
+    color: #F0EFF4;
+}
+
+a:hover {
+    text-decoration: none;
+    color:#CEE0DC;
+}

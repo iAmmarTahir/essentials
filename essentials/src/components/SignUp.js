@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios'
-import { Redirect } from 'react-router-dom'
 
 class SignUp extends Component {
     constructor(props){
@@ -39,6 +38,7 @@ class SignUp extends Component {
 
     handleSubmit(e) {
         e.preventDefault()
+        this.props.history.push('/login')
         axios.post('http://localhost:4000/api/user/signup', {
             name: this.state.name,
             email: this.state.email,
@@ -46,6 +46,7 @@ class SignUp extends Component {
             phone: this.state.phone
         }).then((res) => {
             localStorage.setItem('token', res.data.token)
+            this.props.history.push('/home')
         }).catch((err) => {
             console.log(err)
         })
@@ -59,7 +60,7 @@ class SignUp extends Component {
                     <div className="col-md-6">
                         <form onSubmit={(e) => this.handleSubmit(e)}>
                             <div className="form-group">
-                                <label for="name">Name</label>
+                                <label htmlFor="name">Name</label>
                                 <input 
                                     type="text" 
                                     className="form-control" 
@@ -71,7 +72,7 @@ class SignUp extends Component {
                                 />
                             </div>
                             <div className="form-group">
-                                <label for="email">Email address</label>
+                                <label htmlFor="email">Email address</label>
                                 <input 
                                     type="email" 
                                     className="form-control" 
@@ -83,7 +84,7 @@ class SignUp extends Component {
                                 />
                             </div>
                             <div className="form-group">
-                                <label for="password">Password</label>
+                                <label htmlFor="password">Password</label>
                                 <input 
                                     type="password" 
                                     className="form-control" 
@@ -94,7 +95,7 @@ class SignUp extends Component {
                                 />
                             </div>
                             <div className="form-group">
-                                <label for="phone">Phone</label>
+                                <label htmlFor="phone">Phone</label>
                                 <input 
                                     type="text" 
                                     className="form-control" 

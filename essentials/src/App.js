@@ -4,27 +4,21 @@ import {BrowserRouter as Router,Switch, Route, Link} from 'react-router-dom'
 
 import Login from './components/Login'
 import SignUp  from './components/SignUp'
+import Home from './components/Home';
+import Navbar from './components/Navbar'
 
 function App() {
   return ( 
+    <Router>
       <div>
-        <ul>
-          <li>
-            <Link to="/login">Login</Link>
-          </li>
-          <li>
-            <Link to="/signup">Sign Up</Link>
-          </li>
-        </ul>
+        <Navbar/>
         <Switch>
-          <Route path="/login">
-            <Login/>
-          </Route>
-          <Route path="/signup">
-            <SignUp/>
-          </Route>
+          <Route path="/login" component={Login} />
+          <Route path="/signup" component={SignUp} />
+          <Route path="/home" component={Home}/>
         </Switch>
       </div>
+    </Router>
   );
 }
 
