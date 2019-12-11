@@ -6,6 +6,7 @@ import Login from './components/Login'
 import SignUp  from './components/SignUp'
 import Home from './components/Home';
 import Navbar from './components/Navbar'
+import PrivateRoute from './components/PrivateRoute'
 
 function App() {
   return ( 
@@ -15,7 +16,7 @@ function App() {
         <Switch>
           <Route path="/login" component={Login} />
           <Route path="/signup" component={SignUp} />
-          <Route path="/home" component={Home}/>
+          <PrivateRoute exact path="/home" component={Home}/>
         </Switch>
       </div>
     </Router>

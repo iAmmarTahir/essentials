@@ -5,16 +5,25 @@ const User = require('../models/user')
 
 // Registering a new User
 router.post('/signup', async (req,res) => {
-    
-    const aUser = new User({
-        name: req.body.name,
-        email: req.body.email,
-        password: req.body.password,
-        phone: req.body.phone
+    let exists = false
+    User.findOne({'email':req.body.email}, (err, user) => {
+        if(err) throw err
+        if(user) {
+            exists = true
+            return res.status(401).json({msg: 'User already exists'})
+        }
     })
-    await aUser.save()
-    const token = await aUser.getToken()
-    res.status(200).send(token)
+    if(!exists){
+        const aUser = new User({
+            name: req.body.name,
+            email: req.body.email,
+            password: req.body.password,
+            phone: req.body.phone
+        })
+        await aUser.save()
+        const token = await aUser.getToken()
+        res.status(200).send(token)
+    }
 })
 
 // Logging in a User

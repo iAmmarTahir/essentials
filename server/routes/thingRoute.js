@@ -4,6 +4,14 @@ const Thing = require('../models/thing')
 const User = require('../models/user')
 const auth = require('../auth')
 
+
+router.get('/all', (req, res) => {
+    Thing.find({}, (err, ans) => {
+        if(err) throw err
+        res.status(200).json({data: ans})
+    })
+})
+
 // Add a new item
 router.post('/addThing', auth , (req, res) => {
     const aThing = new Thing({

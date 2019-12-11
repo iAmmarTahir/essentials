@@ -35,6 +35,7 @@ class Login extends Component {
                 password: this.state.password
             }).then((res) => {
                 localStorage.setItem('token', res.data.token)
+                console.log(this.props)
                 this.props.history.push('/home')
                 
             }).catch((err) => {
