@@ -1,7 +1,9 @@
 const express = require('express')
 const router = express.Router()
 const User = require('../models/user')
-
+const jwt = require('jsonwebtoken')
+const config = require('../config')
+const secretKey = config.Secret
 
 // Registering a new User
 router.post('/signup', async (req,res) => {
@@ -83,6 +85,33 @@ router.delete('/delete', (req, res) => {
         (err) => console.log(err)
     )
    
+})
+
+
+// Get User ID 
+router.post('/getTokenData',async (req,res) => {
+    let token = req.body.token
+    if (token.startsWith('Bearer ')) {
+        bearer = token.split(' ')
+        token = bearer[1]
+    }
+    if (token) {
+        jwt.verify(token, secretKey, (err, decoded) => {
+            if (err) {
+                return res.json({
+                    success: false,
+                    message: 'Token is not valid'
+                })
+            } else {
+                res.status(200).json({ result: decoded })
+            }
+        })
+    } else {
+        res.json({
+            success: false,
+            message: 'Auth token is not supplied'
+        })
+    }
 })
 
 module.exports = router

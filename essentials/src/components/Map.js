@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import {GoogleMap, withScriptjs, withGoogleMap, Marker, InfoWindow} from 'react-google-maps'
 import axios from 'axios'
+import {Link} from 'react-router-dom'
  
 function Map(){
   const [things, setThings] = useState([])
   const [selectedThing, setSelectedThing] = useState(null)
   useEffect(() => {
-    axios.get('http://localhost:4000/api/thing/all')
+
+    const token = 'Bearer '.concat(localStorage.getItem('token'))
+    axios.get('http://localhost:4000/api/thing/all', {headers: {Authorization: token}})
       .then((res) => {
         setThings(res.data.data)
       })
@@ -14,7 +17,7 @@ function Map(){
   }, [])
   return (
     <GoogleMap
-      defaultZoom={10}
+      defaultZoom={14}
       defaultCenter={{
         lat: 31.551243595186207,
         lng: 74.3959136225749
@@ -45,6 +48,12 @@ function Map(){
             <div>
               <img style={{height: '100px', width: '120px'}} src={`http://localhost:4000/${selectedThing.image}`}/>
               <h5 style={{textAlign: 'center', fontFamily: 'Roboto'}}>{selectedThing.name}</h5>
+              <p>Price: Rs. {selectedThing.price}</p>
+              <p>Quantity: {selectedThing.quantity} Plates</p>
+              <Link className="btn btn-primary" to={{
+                pathname: '/order',
+                state: selectedThing
+              }}>Order</Link>
             </div>
           </InfoWindow>
         }

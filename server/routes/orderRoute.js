@@ -5,6 +5,7 @@ const Order = require('../models/order')
 
 // Add order
 router.post('/addOrder', auth , (req, res) => {
+    console.log(req.body)
     const anOrder = new Order({
         buyer: req.body.buyer,
         thing: req.body.thing
@@ -17,6 +18,7 @@ router.post('/addOrder', auth , (req, res) => {
 
 // Update status to completed when its done
 router.put('/updateStatus', auth, (req,res) => {
+    console.log(req.body)
     Order.findById(req.body._id,(err, ans) => {
         if(err) res.sendStatus(404)
         ans.status = 'Completed'

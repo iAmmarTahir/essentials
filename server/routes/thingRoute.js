@@ -5,7 +5,7 @@ const User = require('../models/user')
 const auth = require('../auth')
 
 
-router.get('/all', (req, res) => {
+router.get('/all', auth,  (req, res) => {
     Thing.find({}, (err, ans) => {
         if(err) throw err
         res.status(200).json({data: ans})
@@ -27,13 +27,6 @@ router.post('/addThing', auth , (req, res) => {
         if(err) {
             res.status(404).json({err})
         }
-        
-        User.findById(req.body.userId, (err, user) => {
-            if (err) console.log(err)
-            if(!user) throw new Error('No user')
-            user.things.push(ans._id)
-            user.save()
-        })
         res.status(200).send(ans)
     })
 })
