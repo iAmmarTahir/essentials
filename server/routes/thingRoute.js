@@ -22,7 +22,7 @@ router.post('/addThing', auth , (req, res) => {
         quantity: req.body.quantity,
         location: {lat: req.body.location.lat , lng: req.body.location.lng},
         timeMade: req.body.timeMade,
-        madeBy: req.body.userId
+        madeBy: req.body.userId,
     }).save((err, ans) => {
         if(err) {
             res.status(404).json({err})

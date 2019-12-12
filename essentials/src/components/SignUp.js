@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios'
+import {
+    CircularProgress
+} from '@material-ui/core';
 
 class SignUp extends Component {
     constructor(props){
@@ -82,9 +85,7 @@ class SignUp extends Component {
                     <div className="col-md-6">
                         <h1 className="title">SignUp</h1>
                         {
-                            this.state.isLoading ? (
-                                <h1>Loading...</h1>
-                            ) : (
+                            
                                 this.state.signUpError ? (
                                     <h1>{this.state.signUpError}</h1>
                                 ) : (
@@ -138,9 +139,14 @@ class SignUp extends Component {
                                         <button type="submit" className="btn btn-primary">Sign Up</button>
                                     </form>
                                 )
-                            )
+                            
                         }
-
+                        {
+                            this.state.isLoading && (
+                                                <CircularProgress style={{margin: '20px 0'}}/>
+                                            )
+                        
+                        }
                         
                     </div>
                 </div>

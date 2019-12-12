@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
+import { Button } from '@material-ui/core';
 
 
 function Order(props) {
@@ -46,7 +47,7 @@ function Order(props) {
                     <p>Quantity: <span style={{fontWeight: 'bold'}}>{props.location.state.quantity}</span></p>
                     <p>Price: <span style={{fontWeight: 'bold'}}>Rs. {props.location.state.price}</span></p>
                     <p>Time made: <span style={{fontWeight: 'bold'}}>{props.location.state.timeMade}</span></p>
-                    <button onClick={handleOrder}>Order</button>
+                    <Button color="primary" onClick={handleOrder}>Order</Button>
                 </div>
             </div>
         </div>

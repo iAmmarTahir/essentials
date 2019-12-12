@@ -1,44 +1,43 @@
 
-import {Link} from 'react-router-dom'
-import './styles/navbar.css'
-
 import React, { Component } from 'react';
+import {Redirect, Link} from 'react-router-dom'
+
+import AppBar from '@material-ui/core/AppBar'
+import ToolBar from '@material-ui/core/Toolbar'
+import Button from '@material-ui/core/Button'
+import { Typography } from '@material-ui/core';
 
 class Navbar extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            isAuthenticated: false
+            authenticated : this.props.authenticated,
+            logOut: false
         }
     }
 
+
+    handleLogOut(e) {
+        localStorage.removeItem('token')
+    }
+
     render() {
-        const { isAuthenticated } = this.state
         return (
-            <div className="nav-bar">
-                <h1 className="logo">Essentials</h1>
-                <nav>
+            <AppBar>
+                <ToolBar>
+                    <Typography style={{marginRight: '50px'}} variant="h6">ESSENTIALS</Typography>
+                    <Button color="inherit" component={Link} to="/home">Home</Button>
+                    <Button color="inherit" component={Link} to="/login">Login</Button>
+                    <Button color="inherit" component={Link} to="/signup">Sign Up</Button> 
                     {
-                        isAuthenticated ? (
-                            <button>Log Out</button>
-                        ) : (
-                            <ul>
-                                <li>
-                                    <Link to={{ 
-                                        pathname:"/login",
-                                        state: isAuthenticated
-                                    }}>Login</Link>
-                                </li>
-                                <li>
-                                    <Link to="/signup">Sign Up</Link>
-                                </li>
-                            </ul>
+                        this.state.authenticated && (
+                            <Button onClick={(e) => this.handleLogOut(e)} color="inherit" >Log Out</Button> 
                         )
-                    }
-                </nav>
-            </div>
-        );
+                    }               
+                </ToolBar>
+            </AppBar>
+        )
     }
 }
 

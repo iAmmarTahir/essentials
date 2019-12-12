@@ -34,7 +34,8 @@ function OrderRecieved(props) {
                         ) : (
                             <Fragment>
                                 <h1>Your order is on your way...</h1>
-                                <h6>Let us know when you recieve it and make the payment to the Delievery Man</h6>
+                                <h6>Let us know when you recieve it</h6>
+                                <h6>Make the payment to the Delievery Man</h6>
                                 <button className="btn btn-primary" onClick={handleRecieved}>Recieved</button>
                             </Fragment>
                         )

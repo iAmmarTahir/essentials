@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios'
-import './styles/login.css'
+import { CircularProgress } from '@material-ui/core';
 
 class Login extends Component {
     constructor(props){
@@ -29,7 +29,7 @@ class Login extends Component {
             isLoading: true
         })
         
-        setTimeout(() => {
+        
             axios.post('http://localhost:4000/api/user/login', {
                 email: this.state.email,
                 password: this.state.password
@@ -51,8 +51,7 @@ class Login extends Component {
                     this.props.history.push('/login')
                 }, 2000)
             })
-            
-        },2000)
+
     }
     render() {
         const {email, password} = this.state
@@ -63,9 +62,7 @@ class Login extends Component {
                     <div className="col-md-6">
                         <h1 className="title">Login</h1>
                         {
-                            this.state.isLoading ? (
-                                <h1>Loading...</h1>
-                            ) : (
+                            
                                 this.state.loginError ? (
                                 <h1>{this.state.loginError}</h1>
                                 ) : (
@@ -94,9 +91,15 @@ class Login extends Component {
                                             />
                                         </div>
                                         <button type="submit" className="btn btn-primary">Log in</button>
+                                        
                                     </form>
+
                                 )
-                            )
+                        }
+                        {
+                            this.state.isLoading && (
+                                                <CircularProgress style={{margin: '20px 0'}}/>
+                                            )
                         }
                     </div>
                 </div>

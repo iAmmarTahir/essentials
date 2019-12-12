@@ -24,14 +24,16 @@ function Map(){
       }}>
         {
           things.map((thing) => (
-            <Marker key={thing._id} position={{
-              lat: thing.location.lat,
-              lng: thing.location.lng
-            }}
-            onClick = {() => {
-              setSelectedThing(thing)
-            }}
-            />
+            !thing.isSold && (
+              <Marker key={thing._id} position={{
+                lat: thing.location.lat,
+                lng: thing.location.lng
+              }}
+              onClick = {() => {
+                setSelectedThing(thing)
+              }}
+              />
+            )
           ))
         }
         {
