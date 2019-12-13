@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { Redirect , Route } from 'react-router-dom'
-
-const PrivateRoute = ({component: Component, ...rest}) => (
+import {connect } from 'react-redux'
+const PrivateRoute = ({component: Component, authenticated, ...rest}) => (
     <Route
     {...rest}
-    render={props => localStorage.getItem("token") ? (
+    render={props => authenticated ? (
         <Component {...props}/>
     ) : (
         <Redirect
@@ -17,4 +17,8 @@ const PrivateRoute = ({component: Component, ...rest}) => (
     />
 )
 
-export default PrivateRoute
+const mapStateToProps = (state) => ({
+    authenticated : state.user.authenticated
+})
+
+export default connect(mapStateToProps)(PrivateRoute)

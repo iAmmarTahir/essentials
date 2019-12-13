@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import axios from 'axios'
+
+import {connect} from 'react-redux'
+import {loginUser} from '../redux/actions/userAction'
+
 import { CircularProgress } from '@material-ui/core';
 
 class Login extends Component {
@@ -8,7 +11,6 @@ class Login extends Component {
         this.state = {
             email: '',
             password: '',
-            isLoading: false,
             loginError: ''
         }
     }
@@ -25,47 +27,33 @@ class Login extends Component {
     }
     handleSubmit(e) {
         e.preventDefault()
-        this.setState({
-            isLoading: true
-        })
+        const userData = {
+            email: this.state.email,
+            password: this.state.password
+        }
         
-        
-            axios.post('http://localhost:4000/api/user/login', {
-                email: this.state.email,
-                password: this.state.password
-            }).then((res) => {
-                localStorage.setItem('token', res.data.token)
-                this.props.history.push('/home')
-                
-            }).catch((err) => {
-                this.setState({
-                    isLoading: false,
-                    loginError: 'Login failed due to incorrect credentials...'
-                })
-                setTimeout(() => {
-                    this.setState({
-                        loginError: '',
-                        email: '',
-                        password: ''
-                    })
-                    this.props.history.push('/login')
-                }, 2000)
-            })
+        this.props.loginUser(userData, this.props.history)
+            
 
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            loginError: nextProps.ui.errors
+        })
     }
     render() {
         const {email, password} = this.state
+        const {ui: loading} = this.props
         return (
             <div className="container">
                 <div className="row">
                     <div className="col-md-3"></div>
                     <div className="col-md-6">
                         <h1 className="title">Login</h1>
-                        {
+                        
                             
-                                this.state.loginError ? (
-                                <h1>{this.state.loginError}</h1>
-                                ) : (
+                                
                                     <form onSubmit={(e) => this.handleSubmit(e)}>
                                         <div className="form-group">
                                             <label htmlFor="email">Email address</label>
@@ -93,9 +81,12 @@ class Login extends Component {
                                         <button type="submit" className="btn btn-primary">Log in</button>
                                         
                                     </form>
-
+                                {
+                                this.state.loginError && (
+                                <h6>{this.state.loginError}</h6>
                                 )
-                        }
+                                }
+                    
                         {
                             this.state.isLoading && (
                                                 <CircularProgress style={{margin: '20px 0'}}/>
@@ -108,4 +99,14 @@ class Login extends Component {
     }
 }
 
-export default Login;
+const mapStateToProps = (state) => ({
+    user: state.user,
+    ui: state.ui
+}) 
+
+const mapActionToProps = {
+    loginUser
+}
+
+
+export default connect(mapStateToProps, mapActionToProps)(Login);

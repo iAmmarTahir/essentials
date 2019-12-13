@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import {BrowserRouter as Router,Switch, Route, Link} from 'react-router-dom'
 
+import {Provider} from 'react-redux'
+import store from './redux/store'
+
 import Login from './components/Login'
 import SignUp  from './components/SignUp'
 import Home from './components/Home';
@@ -37,26 +40,24 @@ const Theme = createMuiTheme({
 
 function App() {
 
-  const token = localStorage.getItem('token')
-  let authenticated = token === null ? false : true 
-
   return ( 
     <MuiThemeProvider theme={Theme}>
-      <Router>
-        <div>
-          <Navbar authenticated={authenticated}/>
-          <div style={{marginTop: '100px', marginLeft: 'auto'}} className="container">
-            <Switch>
-              <AuthRoute path="/login" component={Login} authenticated={authenticated}/>
-              <AuthRoute path="/signup" component={SignUp} authenticated={authenticated}/>
-              <PrivateRoute exact path="/addItem" component={AddItem}/>
-              <PrivateRoute  exact path="/order" component={Order}/>
-              <PrivateRoute exact path="/orderRecieved" component={OrderRecieved}/>
-              <PrivateRoute exact path="/home" component={Home}/>
-            </Switch>
-          </div>
-        </div>
-      </Router>
+      <Provider store={store}>
+        <Router>
+            <Navbar/>
+            <div style={{marginTop: '100px', marginLeft: 'auto'}} className="container">
+              <Switch>
+                <AuthRoute path="/login" component={Login} />
+                <AuthRoute path="/signup" component={SignUp} />
+                <PrivateRoute exact path="/addItem" component={AddItem}/>
+                <PrivateRoute  exact path="/order" component={Order}/>
+                <PrivateRoute exact path="/orderRecieved" component={OrderRecieved}/>
+                <PrivateRoute exact path="/home" component={Home}/>
+                <PrivateRoute exact path="/" component={Home}/>
+              </Switch>
+            </div>
+        </Router>
+      </Provider>
     </MuiThemeProvider>
   );
 }

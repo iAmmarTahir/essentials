@@ -1,9 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
-import { Button } from '@material-ui/core';
+import Moment from 'react-moment'
+import { makeStyles } from '@material-ui/core/styles'
+import { Button, Card, CardMedia, CardContent, Typography } from '@material-ui/core';
 
+const useStyles = makeStyles({
+    card: {
+        maxWidth: 345,
+    },
+    media: {
+        height: 140,
+    },
+    text: {
+        marginTop: 5,
+        marginBottom: 5
+    }
+})
 
 function Order(props) {
+    const classes = useStyles();
 
     const [buyer, setBuyer] = useState('')
 
@@ -41,13 +56,45 @@ function Order(props) {
             <div className="row">
                 <div className="col-md-3"></div>
                 <div className="col-md-6">
-                    <img style={{height:'200px', width: '200px'}} src={`http://localhost:4000/${props.location.state.image}`}/>
-                    <h1>{props.location.state.name}</h1>  
-                    <p>Description: <span style={{fontWeight: 'bold'}}>{props.location.state.description}</span></p>
-                    <p>Quantity: <span style={{fontWeight: 'bold'}}>{props.location.state.quantity}</span></p>
-                    <p>Price: <span style={{fontWeight: 'bold'}}>Rs. {props.location.state.price}</span></p>
-                    <p>Time made: <span style={{fontWeight: 'bold'}}>{props.location.state.timeMade}</span></p>
-                    <Button color="primary" onClick={handleOrder}>Order</Button>
+                    <Card className={classes.card}>
+                        <CardMedia className={classes.media}
+                            image = {
+                                `http://localhost:4000/${props.location.state.image}`
+                            }
+                            title={props.location.state.name}
+                        >
+                        </CardMedia>
+                        <CardContent>
+                            <Typography className={classes.text} variant="h3">
+                                {props.location.state.name}
+                            </Typography>
+                            <Typography className={classes.text} variant="body1">
+                                Description :  
+                                {
+                                    ' ' + props.location.state.description
+                                }
+                            </Typography>
+                            <Typography className={classes.text} variant="body1">
+                                Quantity : 
+                                {
+                                   ' ' + props.location.state.quantity
+                                } {
+                                    props.location.state.quantity === 1 ? (<span>plate</span> ) : (<span>plates</span>)
+                                }
+                            </Typography>
+                            <Typography className={classes.text} variant="body1">
+                                Price : Rs. {
+                                    props.location.state.price
+                                }
+                            </Typography>
+                            <Typography className={classes.text} variant="body1">
+                               Time made : {
+                                    <Moment format="YYYY-MM-DD HH:mm">{props.location.state.timeMade}</Moment>
+                               }
+                            </Typography>
+                        </CardContent>
+                        <Button style={{float: 'right', marginRight: '10px'}} className={classes.text} color="primary" onClick={handleOrder}>Order</Button>
+                    </Card>                    
                 </div>
             </div>
         </div>
