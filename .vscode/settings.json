@@ -3,5 +3,6 @@
         "node_modules{,/**}",
         ".vscode{,/**}"
     ],
-    "appService.deploySubpath": ""
+    "appService.deploySubpath": "",
+    "appService.defaultWebAppToDeploy": "/subscriptions/a7c2281d-fe66-46c2-bd36-9d8cc55634f8/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/Essentials"
 }

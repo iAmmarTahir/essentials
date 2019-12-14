@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "start": "cd essentials && yarn && yarn run build && cd ../ && node index.js"
+    "start": "cd essentials && yarn && yarn run build && cd ../ && node index.js",
+    "dev": "node index.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
