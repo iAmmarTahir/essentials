@@ -7,8 +7,8 @@ const multer = require("multer");
 const GridFsStorage = require("multer-gridfs-storage");
 const Grid = require("gridfs-stream");
 const methodOverride = require("method-override");
-const api = require('./api')
-const config = require('./config')
+const api = require('./server/api')
+const config = require('./server/config')
 const cors = require('cors')
 
 // Init app
@@ -18,8 +18,9 @@ const app = express()
 // MiddleWare
 app.use(bodyParser.json())
 app.use(methodOverride('_method'))
-app.set('view engine', 'ejs')
 app.use(cors())
+
+app.use(express.static('./essentials/build'))
 
 // MongoDB URI
 const URI = config.URI
@@ -118,13 +119,11 @@ app.delete("/files/:id", (req, res) => {
 });
 
 
-app.get("/", (req, res) => {
-  res.render('index')
-});
+app.get('/',(req, res) => {
+  res.sendFile('index.html', {root: __dirname + '/essentials/build/'})
+})
 
-
-
-const PORT = 4000
+const PORT = process.env.PORT || 4000
 
 app.listen(PORT, () => {
     console.log(`Server running on ${PORT}...`)
