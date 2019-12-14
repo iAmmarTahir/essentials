@@ -119,7 +119,7 @@ app.delete("/files/:id", (req, res) => {
 });
 
 
-app.get('/',(req, res) => {
+app.get('/*',(req, res) => {
   res.sendFile('index.html', {root: __dirname + '/essentials/build/'})
 })
 
