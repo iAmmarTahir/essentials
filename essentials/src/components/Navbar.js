@@ -46,6 +46,7 @@ class Navbar extends Component {
                         this.state.authenticated ? (
                             <Fragment>
                                 <Button color="inherit" component={Link} to="/addItem">Add Item</Button>
+                                <Button color="inherit" component={Link} to="/orderDetails">Orders</Button>
                                 <Button color="inherit" onClick={(e) => this.handleLogOut(e)}>Log Out</Button>
                             </Fragment>
                         ) : (

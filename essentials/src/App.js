@@ -12,6 +12,8 @@ import PrivateRoute from './components/PrivateRoute'
 import AddItem from './components/AddItem'
 import Order from './components/Order';
 import OrderRecieved from './components/OrderRecieved';
+import OrderDetails from './components/OrderDetails'
+import AddReview from './components/AddReview'
 
 import AuthRoute from './AuthRoute'
 
@@ -20,6 +22,7 @@ import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider'
 
 import './App.css'
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
+import ProductReview from './components/ProductReview';
 
 const Theme = createMuiTheme({
   palette: {
@@ -52,6 +55,9 @@ function App() {
                 <PrivateRoute exact path="/addItem" component={AddItem}/>
                 <PrivateRoute  exact path="/order" component={Order}/>
                 <PrivateRoute exact path="/orderRecieved" component={OrderRecieved}/>
+                <PrivateRoute exact path="/orderDetails" component={OrderDetails}/>
+                <PrivateRoute path="/addReview" component={AddReview}/>
+                <PrivateRoute path="/productReviews" component={ProductReview}/>
                 <PrivateRoute exact path="/home" component={Home}/>
                 <PrivateRoute exact path="/" component={Home}/>
               </Switch>

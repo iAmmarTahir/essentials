@@ -13,7 +13,8 @@ const thing = new Schema({
     },
     timeMade: {type: Date, required:true},
     madeBy: {type: Schema.Types.ObjectId, ref: 'User'},
-    isSold: {type: Boolean, default: false}
+    isSold: {type: Boolean, default: false},
+    reviews: [{type: Schema.Types.ObjectId, ref:'Review'}]
 })
 
 const thingModel = mongoose.model('Thing', thing)

@@ -4,6 +4,7 @@ import { Button, Card, CardContent, Typography } from '@material-ui/core';
 import {
     makeStyles
 } from '@material-ui/core/styles'
+import {URL} from '../webConfig'
 
 const useStyles = makeStyles({
     card: {
@@ -27,7 +28,7 @@ function OrderRecieved(props) {
     const [recieve, setRecieve] = useState('')
     const handleRecieved = () => {
         const token = 'Bearer '.concat(localStorage.getItem('token'))
-        Axios.put('http://localhost:4000/api/order/updateStatus', {
+        Axios.put(URL + 'api/order/updateStatus', {
             _id: localStorage.getItem('order')
         }, {
             headers: {
@@ -37,7 +38,7 @@ function OrderRecieved(props) {
             localStorage.removeItem('order')
             setRecieve('A billion thanks for using Essentials and being a part of saving World...')
             setTimeout(() => {
-                props.history.push('/home')
+                props.history.push('/addReview')
             }, 3000)
         }).catch((err) => {
             console.log(err)

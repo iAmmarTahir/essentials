@@ -5,7 +5,6 @@ const Order = require('../models/order')
 const Thing = require('../models/thing')
 // Add order
 router.post('/addOrder', auth , (req, res) => {
-    console.log(req.body)
     const anOrder = new Order({
         buyer: req.body.buyer,
         thing: req.body.thing
@@ -15,6 +14,12 @@ router.post('/addOrder', auth , (req, res) => {
     })
 })
 
+// Get order
+router.get('/getOrders', auth, (req,res) => {
+    Order.find({'buyer': req.query.userId}).populate('thing').exec((err, ans) => {
+        res.status(200).send({ans})
+    })
+})
 
 // Update status to completed when its done
 router.put('/updateStatus', auth, (req,res) => {

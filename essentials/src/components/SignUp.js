@@ -17,7 +17,8 @@ class SignUp extends Component {
             password: '',
             phone: '',
             isLoading: false,
-            signUpError: ''
+            signUpError: '',
+            loading: false
         }
     }
 
@@ -53,17 +54,22 @@ class SignUp extends Component {
             password: this.state.password,
             phone: this.state.phone
         }
+        this.setState({
+            loading: true
+        })
         this.props.signUpUser(userData, this.props.history)
     }
 
     componentWillReceiveProps(nextProps) {
         this.setState({
-            signUpError: nextProps.ui.errors
+            signUpError: nextProps.ui.errors,
+            loading: false
         })
     }
 
     render() {
-        const {name, email, password, phone} = this.state
+        const {name, email, password, phone,loading} = this.state
+        
         return (
             <div className="container">
                 <div className="row">
@@ -130,10 +136,9 @@ class SignUp extends Component {
                             
                         
                         {
-                            this.state.isLoading && (
+                            loading == true ? (
                                                 <CircularProgress style={{margin: '20px 0'}}/>
-                                            )
-                        
+                                            ) : null
                         }
                         
                     </div>

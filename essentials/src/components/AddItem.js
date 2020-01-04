@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import DateTimePicker from 'react-datetime-picker'
 import Axios from 'axios';
 import '@fortawesome/fontawesome-free/css/all.css'
+import {URL} from '../webConfig'
 
 class AddItem extends Component {
 
@@ -31,7 +32,7 @@ class AddItem extends Component {
             })
         })
         
-        Axios.post('http://localhost:4000/api/user/getTokenData', {
+        Axios.post(URL + 'api/user/getTokenData', {
             token: 'Bearer '.concat(localStorage.getItem('token'))
         })
         .then((res) => {
@@ -85,7 +86,7 @@ class AddItem extends Component {
     handleUpload(e) {
         const fd = new FormData()
         fd.append('file', this.state.image)
-        Axios.post('http://localhost:4000/upload',fd).then(
+        Axios.post(URL + 'upload', fd).then(
             (res) => {
                 this.setState({
                     imageUploaded: true,
@@ -98,7 +99,7 @@ class AddItem extends Component {
     handleSubmit(e) {
         e.preventDefault()
         const token = 'Bearer '.concat(localStorage.getItem('token'))
-        Axios.post('http://localhost:4000/api/thing/addThing', {
+        Axios.post(URL + 'api/thing/addThing', {
             name: this.state.name,
             description: this.state.description,
             price: this.state.price,
@@ -188,6 +189,7 @@ class AddItem extends Component {
                     />
                   </div>
                   <div className="form-group">
+                    <label>Manufactured Date</label>
                     <DateTimePicker
                       onChange={this.handleChangeTimeMade}
                       value={timeMade}

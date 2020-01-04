@@ -3,6 +3,7 @@ import Axios from 'axios';
 import Moment from 'react-moment'
 import { makeStyles } from '@material-ui/core/styles'
 import { Button, Card, CardMedia, CardContent, Typography } from '@material-ui/core';
+import {URL} from '../webConfig'
 
 const useStyles = makeStyles({
     card: {
@@ -23,7 +24,7 @@ function Order(props) {
     const [buyer, setBuyer] = useState('')
 
     useEffect(() => {
-        Axios.post('http://localhost:4000/api/user/getTokenData', {
+        Axios.post(URL + 'api/user/getTokenData', {
                 token: 'Bearer '.concat(localStorage.getItem('token'))
             })
             .then((res) => {
@@ -36,7 +37,7 @@ function Order(props) {
 
     const handleOrder = () => {
         const token = 'Bearer '.concat(localStorage.getItem('token'))
-        Axios.post('http://localhost:4000/api/order/addOrder', {
+        Axios.post(URL + 'api/order/addOrder', {
             thing: props.location.state._id,
             buyer: buyer
         }, {
@@ -45,6 +46,7 @@ function Order(props) {
             }
         }).then((res) => {
             localStorage.setItem('order', res.data.payload._id)
+            localStorage.setItem('thing', props.location.state._id)
             props.history.push('/orderRecieved')
         }).catch((err) => {
             console.log(err)
@@ -59,7 +61,7 @@ function Order(props) {
                     <Card className={classes.card}>
                         <CardMedia className={classes.media}
                             image = {
-                                `http://localhost:4000/${props.location.state.image}`
+                                `${URL + props.location.state.image}`
                             }
                             title={props.location.state.name}
                         >

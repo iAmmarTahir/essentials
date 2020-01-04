@@ -1,8 +1,10 @@
 import  {SET_USER, SET_ERRORS, CLEAR_ERRORS, LOADING_UI,SET_UNAUTHENTICATED} from '../types'
 import axios from 'axios'
+import {URL} from '../../webConfig'
+
 export const loginUser = (userData, history) => (dispatch) => {
     dispatch({type: LOADING_UI})
-    axios.post('http://localhost:4000/api/user/login', {
+    axios.post(URL + 'api/user/login', {
         email: userData.email,
         password: userData.password
     }).then((res) => {
@@ -19,7 +21,7 @@ export const loginUser = (userData, history) => (dispatch) => {
 }
 
 export const getUserData = () => (dispatch) => (
-    axios.post('http://localhost:4000/api/user/getTokenData', {
+    axios.post(URL + 'api/user/getTokenData', {
             token: 'Bearer '.concat(localStorage.getItem('token'))
         })
         .then((res) => {
@@ -45,7 +47,7 @@ export const signUpUser = (userData, history) => (dispatch) => {
     
     dispatch({type: LOADING_UI})
 
-    axios.post('http://localhost:4000/api/user/signup', {
+    axios.post(URL + 'api/user/signup', {
         name: userData.name,
         email: userData.email,
         password: userData.password,
