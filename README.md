@@ -16,4 +16,3 @@ Essentials
     1- Database Design (MongoDB)
     2- Backend setup (NodeJS)
     3- Chat(Socket.io)
-    4- 
